@@ -1,0 +1,32 @@
+name: HFR Update
+
+on: 
+  - push
+  - workflow_dispatch
+
+env:
+  HFR_LOGIN: ${{ vars.HFR_LOGIN }}
+  HFR_PASSWD: ${{ secrets.HFR_PASSWD }}
+
+jobs:
+  update-hfr:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Fetch git2hfr.py
+        run: wget https://raw.githubusercontent.com/XaaT/hfr-git2hfr/dev/python/git2hfr.py
+
+      - name: Update post
+        run: python git2hfr.py --auto-login --edit-post 10 146781 2318726 --content-file post-1.txt --debug
