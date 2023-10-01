@@ -28,9 +28,10 @@ jobs:
       - name: Fetch git2hfr.py
         run: wget https://raw.githubusercontent.com/XaaT/hfr-git2hfr/dev/python/git2hfr.py
 
-      - name: Install python deps
+      - name: Install python dependencies
         run: |
           python3 -m pip install requests
+          python3 -m pip install BeautifulSoup4
 
       - name: Update post
         run: python git2hfr.py --auto-login --edit-post 10 146781 2318726 --content-file post-1.txt --debug
