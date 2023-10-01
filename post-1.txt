@@ -1,0 +1,12 @@
+Bienvenue sur le topic des mises à jour automatisées et participatives d'un post ou d'un FP HFR  :hello: 
+
+[*][b]L'idée[/b] : permettre à tous d'ajouter du contenu en première page d'un topic.
+[*]Tant qu'à faire : automatiser la mise à jour du ou des posts.
+[*]Le script git2hfr (PHP) permet donc de mettre à jour un post ou une premièr(e) page/post d'un topic HFR depuis un dépôt Git(hub|lab) avec Webhooks. Appelé via un webhook (depuis github par exemple), après un push dans un dépôt git, il récupère les données et édite le post/sujet voulu. Il permet l'[b]édition collaborative[/b] du FP en faisant des pull request sur Github ou autre.
+[*]Un hébergement avec PHP est nécéssaire.
+
+Merci à roger21 pour l'avoir écrit :jap:
+
+[*]Le script : https://github.com/XaaT/hfr-git2hfr
+[*]Les webhooks : [url=https://developer.github.com/webhooks/]Github[/url] - [url=https://docs.gitlab.com/ee/user/project/integrations/webhooks.html]Gitlab[/url]
+[*]Guide : [[url=https://forum.hardware.fr/forum2.php?config=hfr.inc&cat=4&subcat=407&post=349703&page=1&p=1&sondage=0&owntopic=1&trash=0&trash_post=0&print=0&numreponse=0&quote_only=0&new=0&nojs=0#t3314671]installation script + github[/url]]
