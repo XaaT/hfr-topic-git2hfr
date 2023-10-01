@@ -30,7 +30,7 @@ jobs:
 
       - name: Install python deps
         run: |
-          sudo pip3 install requests
+          python3 -m pip install requests
 
       - name: Update post
         run: python git2hfr.py --auto-login --edit-post 10 146781 2318726 --content-file post-1.txt --debug
