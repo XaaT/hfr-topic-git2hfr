@@ -2,3 +2,4 @@
 [*][[url=https://github.com/XaaT/hfr-toulouse]GitHub[/url]] [url=https://forum.hardware.fr/hfr/Discussions/Loisirs/toulouse-city-sujet_18045_1.htm]• Toulouse • da P!nk city •[/url]
 [*][[url=https://github.com/XaaT/hfr-antivoiture]GitHub[/url]] [url=https://forum.hardware.fr/forum2.php?config=hfr.inc&cat=13&subcat=423&post=110467&page=1&p=1&sondage=0&owntopic=1&trash=0&trash_post=0&print=0&numreponse=0&quote_only=0&new=0&nojs=0]• La bévue du tout-voiture • Urbanisme et mobilités efficients •[/url]
 [*][[url=https://github.com/XaaT/hfr-asr]GitHub[/url]] [url=https://forum.hardware.fr/forum2.php?config=hfr.inc&cat=21&subcat=494&post=19626&page=1&p=1&sondage=0&owntopic=1&trash=0&trash_post=0&print=0&numreponse=0&quote_only=0&new=0&nojs=0]• Administrateur Systèmes linux/unix & Réseaux •[/url]
+[*][[url=https://github.com/XaaT/hfr-topic-git2hfr]GitHub[/url]] Collabo HFR (ici)
