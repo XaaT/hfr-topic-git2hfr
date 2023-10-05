@@ -33,5 +33,6 @@ jobs:
           python3 -m pip install requests
           python3 -m pip install BeautifulSoup4
 
-      - name: Update post
-        run: python git2hfr.py --auto-login --edit-post 10 146781 2318726 --content-file post-1.txt --debug
+      - name: Update posts
+        run: |
+          python git2hfr.py --auto-login --edit-post 10 146781 2318726 --content-file post-{1..4}.txt

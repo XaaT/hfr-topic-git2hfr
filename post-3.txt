@@ -1,0 +1,91 @@
+Guide d'installation côté serveur & github :
+[quote]résumé :
+
+le script gh2hfr permet de mettre à jour automatiquement un post du forum hfr en fonction d'un contenu disponible en ligne. 
+le script peut mettre à jour plusieurs posts à la fois et il peut être appelé directement ou via un webhook github. 
+le script est écrit en php, il est prévu pour fonctionner et être appelé depuis un serveur web qui interprète le php. 
+ 
+ 
+
+- 1 - récupérer le script
+
+bouton droit sur le lien du script -> enregistrer la cible du lien sous... 
+ 
+renommer le script en "gh2hfr.php" 
+ 
+dupliquer et renommer le script pour autant de repositories qui doivent gérés, ex : gh2hfr-toulouse.php, gh2hfr-expats.php, gh2hfr-ryanair.php etc. 
+ 
+ 
+
+- 2 - configurer le script
+
+ouvrir le script dans un éditeur (de préférence avec coloration syntaxique php ou mieux encore avec check du code php pour éviter les erreurs de syntaxe) 
+ 
+dans la partie /* les paramètres */ il faut préciser 2 choses : 
+ 
+ - 1/ les urls "source" et "formulaire" pour chaque post du forum à mettre à jour : 
+ 
+sous la forme d'un tableau de tableaux, chaque sous-tableau correspond à un post, avec : 
+le champ "source" : l'url du contenu à mettre dans le post (par exemple la version raw d'un fichier github) 
+le champ "formulaire" : l'url de la page d'édition du post sur le forum (quand on clique sur le sur le bouton d'édition pas rapide) 
+ 
+2 posts de roger21 sont configurés pour l'exemple, il peut n'y en avoir qu'un ou beaucoup plus mais il faut alors prévoir que le temps d'exécution du script va augmenter et qu'il peut alors être nécessaire d'augmenter les limites de temps d’exécution des scripts php dans le fichier de configuration du serveur (ex. php.ini). 
+ 
+ - 2/ les cookies d’authentification sur le forum : 
+ 
+juste le md_user et le md_passs qui peuvent être récupérés en regardant les entêtes d'une requête sur le forum en étant connecté. 
+ 
+par exemple avec un navigateur : charger une page du forum en étant connecté, faire F12, cliquer sur "réseau" et "tout", faire F5, cliquer sur la première requête GET pour afficher les détails, rechercher md_user et md_pass dans les champs set_cookie ou cookie et copier les valeurs correspondant dans le script à la suite des "=". 
+ 
+les cookies d’authentification doivent évidement correspondre à l'auteur des posts à éditer. 
+ 
+ 
+
+- 3 - installer le script
+
+le script est prévu pour être installé sur un serveur web qui interprète le php et qui est accessible depuis internet 
+ 
+on peut configurer des restrictions d'accès au script en les limitant par exemple aux adresses locales et aux adresses de github pour les webhook : 
+ex. pour apache :
+
+Require local 
+Require ip 192.30.252.0/22 185.199.108.0/22 140.82.112.0/20
+
+
+ 
+ 
+
+- 4 - premier test
+
+si le script est bien configuré et qu'il est bien installé et accessible depuis internet il suffit de l'appeler simplement avec un navigateur web pour le tester 
+ 
+si le script fonctionne il affichera les messages "Votre message a été édité avec succès ! " autant de fois que de posts ont été configurés dans le script et les post correspondants sur le forum auront été mis à jour 
+ 
+le script est configuré pour afficher directement les erreurs, il peut donc afficher certaines erreurs en cas de problèmes mais les erreurs de syntaxe ou de compilation (qui surviennent avant que le script ne puisse se lancer) ne seront visibles que dans les fichiers de log du serveur web 
+ 
+ 
+
+- 5 - configuration d'un webhook github pour fonctionner avec le script
+
+la doc des webhooks gihub : https://developer.github.com/webhooks/ 
+ 
+note importante : le script ne gère aucun des messages envoyés par guithub, il ne fait que réagir au fait d'être appelé, en conséquence de quoi il n'y a pas de protections du script contre des appels non désirés et, bien que l'action du script soit entièrement limitée par la configuration des posts dans le script, il peut être intéressant de rendre l'accès au script non trivial (directive require d'apache, port du serveur web exotique, robots.txt, etc.) d'autre part le script réagira indifféremment quelque soit le hook de github configuré (on peut donc le laisser sur le push par défaut) 
+ 
+dans le repository github, aller dans l'onglet settings puis dans le menu webhooks, cliquer sur le bouton "add webhook", donner l'adresse complète du script dans le champ "Payload URL" (on peut laisser tous les autres champs par défaut) et cliquer sur le bouton "add webhook" en bas 
+ 
+le webhook se lance automatiquement une première fois, si tout se passe bien il redirige sur le menu webhooks, sinon il reste sur la page de configuration du webhook où l'on peut consulter la requête et la réponse en bas de la page et il est possible de relancer le hook avec le bouton "redeliver" (toutes les requêtes/réponse restent accessible à cet endroit) 
+ 
+ 
+
+- 6 - limitations
+
+le script a été testé sur un premier post et un post secondaire, il est censé gérer ces deux cas indifféremment et reproduire tous les champs pré-existants à l'identique (icône, options, sondage, etc) 
+ 
+néanmoins tous les cas n'ont pas été testé individuellement et encore moins les cas en erreur, la précaution est donc de mise concernant  
+ 
+1/ la perte des données contenues dans les posts (sauver tout ce qui peut être sauvé avant de laisser le script modifier un post) 
+ 
+2/ les données insérées (le forum gère mal certains caractères UTF-8, il est notamment possible de planter un topic en insérant un caractère UTF-8 dans le sujet par exemple et le forum n'est pas réputé pour sa sécurité ni sa fiabilité, donc prudence quant aux contenus insérés automatiquement dans les posts, ne pas chercher à faire des trucs chelous...) 
+ 
+3/ l’exécution automatique du script, bien que le forum ne possède visiblement aucune protection particulière contre la modification des posts par des scripts, le script ne fait pas d'effort non plus pour se dissimuler (derrière un user-agent ou des en-tête de requête plus standards), il est donc facilement détectable, d'autre part le forum possède une protection contre les requêtes automatiques trop rapides/trop nombreuses générant un ban de l'ip (bien connu des habitué des scripts :o) donc là aussi faire attention à l'utilisation qui est fait du script[/quote]
+
